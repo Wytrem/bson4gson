@@ -1,7 +1,17 @@
-// Apply the java plugin to add support for Java
 apply plugin: 'java'
 apply plugin: 'eclipse'
-// In this section you declare where to find the dependencies of your project
+
+apply plugin: 'maven-publish'
+
+group = 'net.wytrem'
+version = '1.0'
+archivesBaseName = 'bson4gson'
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+compileJava.options.encoding = 'UTF-8'
+
 repositories {
     mavenCentral()
 }
@@ -11,4 +21,21 @@ dependencies {
     compile "com.google.code.gson:gson:2.7"
     compile "org.mongodb:bson:3.3.0"
 }
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+publishing {
+    repositories {
+        maven {
+            url "${System.properties['user.home']}/Wytrem.github.io/maven/"
+        }
+    }
+}
+
 
